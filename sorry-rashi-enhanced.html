@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gomen ne, Rashi 🌸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:#0d0a1f;
+    --night:#181030;
+    --night-soft:#241a44;
+    --sakura:#ff6fa5;
+    --sakura-soft:#ffb3cf;
+    --lavender:#b9a6e0;
+    --gold:#ffd66b;
+    --text-light:#f5eefc;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--night-deep);
+    color:var(--text-light);
+    font-family:'Quicksand', sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- SKY BACKGROUND (fixed, behind everything) ---------- */
+  .sky{
+    position:fixed; inset:0; z-index:0;
+    background:linear-gradient(180deg, var(--night-deep) 0%, var(--night) 55%, var(--night-soft) 100%);
+    overflow:hidden;
+  }
+  .star{
+    position:absolute; background:#fff; border-radius:50%;
+    opacity:.7; animation:twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:.2;} 50%{opacity:1;} }
+
+  .moon{
+    position:absolute; top:6%; right:10%;
+    width:110px; height:110px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #fff8e1, var(--gold) 60%, #e8b94f 100%);
+    box-shadow:0 0 60px 18px rgba(255,214,107,.35), 0 0 120px 40px rgba(255,214,107,.15);
+  }
+
+  .petal{
+    position:absolute; top:-5%;
+    width:14px; height:10px;
+    background:linear-gradient(135deg, var(--sakura) 0%, var(--sakura-soft) 100%);
+    border-radius:80% 0 80% 0;
+    opacity:.85;
+    animation-name:fall, spin;
+    animation-timing-function:linear, linear;
+    animation-iteration-count:infinite, infinite;
+  }
+  @keyframes fall{ to{ transform:translateY(115vh); } }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ---------- LAYOUT ---------- */
+  section{
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:6vh 6vw;
+  }
+
+  .hero .eyebrow{
+    font-family:'Caveat', cursive; font-size:1.4rem; color:var(--sakura-soft);
+    letter-spacing:1px;
+  }
+  .title{
+    font-family:'Klee One', cursive; font-weight:600;
+    font-size:clamp(2.8rem, 9vw, 6rem);
+    line-height:1.1;
+    text-shadow:0 0 30px rgba(255,111,165,.35);
+  }
+  .title span{ color:var(--sakura); }
+  .subtitle{
+    margin-top:1.2rem; font-size:clamp(1rem,2.2vw,1.3rem);
+    color:var(--lavender); max-width:32rem;
+  }
+  .scroll-hint{
+    margin-top:3.5rem; font-size:.95rem; color:var(--text-light); opacity:.6;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* ---------- ANIME AVATAR SECTION ---------- */
+  .avatar-section{
+    display:flex; flex-direction:column; align-items:center; gap:2.5rem;
+  }
+  .avatar-container{
+    width:220px; height:280px;
+    display:flex; align-items:center; justify-content:center;
+    animation:floatAvatar 3s ease-in-out infinite;
+  }
+  @keyframes floatAvatar{
+    0%, 100%{transform:translateY(0px);}
+    50%{transform:translateY(-15px);}
+  }
+  .avatar-svg{
+    filter:drop-shadow(0 10px 30px rgba(255,111,165,.3));
+  }
+
+  /* ---------- HANDWRITTEN NOTE SECTION ---------- */
+  .note-section{
+    max-width:38rem; width:100%;
+  }
+  .handwritten-note{
+    background:linear-gradient(135deg, #fef5e7 0%, #fdf6ec 100%);
+    color:#3a2b1a;
+    padding:2.8rem 2.4rem;
+    border-radius:8px;
+    box-shadow:0 30px 70px rgba(0,0,0,.5), 0 0 0 2px rgba(255,111,165,.15);
+    transform:rotate(-2deg);
+    position:relative;
+    border-top:3px solid var(--sakura-soft);
+  }
+  .handwritten-note::before{
+    content:'';
+    position:absolute; top:-8px; left:20px;
+    width:40px; height:16px;
+    background:linear-gradient(90deg, var(--sakura-soft), transparent);
+    border-radius:50%;
+    opacity:.4;
+  }
+  .note-header{
+    font-family:'Caveat', cursive;
+    font-size:1.8rem;
+    color:var(--sakura);
+    text-align:left;
+    margin-bottom:1rem;
+  }
+  .note-content{
+    font-family:'Caveat', cursive;
+    font-size:1.35rem;
+    line-height:1.8;
+    text-align:left;
+    color:#3a2b1a;
+  }
+  .note-signature{
+    margin-top:1.5rem;
+    font-family:'Caveat', cursive;
+    font-size:1.3rem;
+    color:var(--sakura);
+    text-align:right;
+  }
+
+  /* ---------- MESSAGES CAROUSEL SECTION ---------- */
+  .messages-section{
+    position:relative;
+  }
+  .section-label{
+    font-family:'Klee One', cursive;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    margin-bottom:2.5rem;
+    color:var(--sakura-soft);
+  }
+  .messages-carousel{
+    max-width:36rem; width:100%;
+    position:relative;
+    height:240px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .message-card{
+    position:absolute;
+    width:100%;
+    padding:2rem;
+    background:linear-gradient(135deg, rgba(255,111,165,.1) 0%, rgba(185,166,224,.1) 100%);
+    border:2px solid rgba(255,111,165,.3);
+    border-radius:16px;
+    opacity:0;
+    transform:scale(0.8) translateY(20px);
+    transition:all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events:none;
+  }
+  .message-card.active{
+    opacity:1;
+    transform:scale(1) translateY(0);
+    pointer-events:auto;
+  }
+  .message-text{
+    font-size:clamp(1rem, 2.5vw, 1.25rem);
+    line-height:1.6;
+    color:var(--text-light);
+    font-weight:500;
+  }
+  .message-emoji{
+    font-size:2rem;
+    margin-top:1rem;
+  }
+  .carousel-dots{
+    position:absolute; bottom:-50px; left:50%; transform:translateX(-50%);
+    display:flex; gap:0.8rem;
+  }
+  .dot{
+    width:10px; height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,.3);
+    cursor:pointer;
+    transition:all 0.3s ease;
+  }
+  .dot.active{
+    background:var(--sakura);
+    transform:scale(1.3);
+  }
+
+  /* letter / note */
+  .letter{
+    background:#fdf6ec; color:#3a2b1a;
+    max-width:32rem; width:100%;
+    padding:2.6rem 2.2rem;
+    border-radius:6px;
+    box-shadow:0 25px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05);
+    transform:rotate(-1deg);
+    font-family:'Caveat', cursive;
+    font-size:1.45rem;
+    line-height:1.5;
+    text-align:left;
+  }
+  .letter strong{ color:var(--sakura);}
+
+  /* meter */
+  .meter-wrap{ width:min(420px, 80vw); margin:1.5rem 0 2.2rem; }
+  .meter-bar{
+    width:100%; height:18px; border-radius:99px;
+    background:rgba(255,255,255,.08);
+    overflow:hidden; border:1px solid rgba(255,255,255,.15);
+  }
+  .meter-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--sakura), var(--gold));
+    border-radius:99px;
+    transition:width .6s ease;
+  }
+  .meter-percent{ margin-top:.6rem; font-weight:700; color:var(--gold); font-size:1.1rem; }
+  .sorry-btn, .forgive-btn{
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:1.05rem;
+    color:var(--night-deep);
+    background:linear-gradient(135deg, var(--sakura-soft), var(--sakura));
+    border:none; padding:.95rem 2.2rem; border-radius:99px;
+    cursor:pointer; box-shadow:0 10px 25px rgba(255,111,165,.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .sorry-btn:hover, .forgive-btn:not(:disabled):hover{ transform:translateY(-3px); box-shadow:0 14px 32px rgba(255,111,165,.5); }
+  .sorry-btn:active{ transform:translateY(0); }
+  .forgive-btn:disabled{ opacity:.35; cursor:not-allowed; box-shadow:none; }
+
+  .message-display{
+    margin-top:1.8rem; min-height:3.2rem;
+    max-width:30rem; font-size:1.1rem; color:var(--text-light);
+    transition:opacity .3s ease;
+  }
+
+  /* promise list */
+  .promise-list{
+    list-style:none; max-width:34rem; width:100%;
+    display:flex; flex-direction:column; gap:1rem; text-align:left;
+  }
+  .promise-list li{
+    display:flex; align-items:flex-start; gap:.9rem;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    padding:1rem 1.2rem; border-radius:14px;
+    font-size:1.05rem;
+  }
+  .promise-list .icon{ font-size:1.4rem; }
+
+  /* finale */
+  .finale-section h2{
+    font-family:'Klee One', cursive; font-size:clamp(2rem,5vw,3rem);
+    color:var(--sakura); text-shadow:0 0 30px rgba(255,111,165,.4);
+  }
+  .finale-sub{ color:var(--lavender); margin:1rem 0 2.2rem; max-width:28rem; }
+  .hint{ margin-top:1rem; font-size:.9rem; color:var(--lavender); opacity:.75; }
+  .celebration{
+    position:fixed; inset:0; pointer-events:none; z-index:50; overflow:hidden;
+  }
+  .confetti{
+    position:absolute; top:-5%; font-size:1.6rem;
+    animation:confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    to{ transform:translateY(110vh) rotate(540deg); opacity:0; }
+  }
+  .success-msg{
+    margin-top:1.5rem; font-family:'Klee One', cursive; font-size:1.6rem; color:var(--gold);
+    opacity:0; transition:opacity .6s ease;
+  }
+  .success-msg.show{ opacity:1; }
+
+  footer{
+    position:relative; z-index:1; text-align:center; padding:3rem 1rem 4rem;
+    color:var(--lavender); opacity:.5; font-size:.85rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="sky" id="sky">
+  <div class="moon"></div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">ek chhota sa sandesh, Rashi ke liye</div>
+  <h1 class="title">Gomen ne,<br><span>Rashi</span> 🌸</h1>
+  <p class="subtitle">Subah jo bhi hua, uska sabse pyaara aur sabse sacha sorry — ek website ke roop mein, kyunki tum sirf text message se khush nahi hone waali ho 😌</p>
+  <div class="scroll-hint">↓ scroll karo zara</div>
+</section>
+
+<!-- ANIME AVATAR SECTION -->
+<section class="avatar-section">
+  <div class="avatar-container">
+    <svg class="avatar-svg" width="200" height="260" viewBox="0 0 200 260">
+      <!-- Hair -->
+      <ellipse cx="100" cy="60" rx="55" ry="50" fill="#8B4A8B"/>
+      <path d="M 45 60 Q 50 40 100 35 Q 150 40 155 60 L 155 90 Q 100 95 45 90 Z" fill="#8B4A8B"/>
+      
+      <!-- Hair highlights -->
+      <ellipse cx="70" cy="50" rx="15" ry="18" fill="#B366B3" opacity="0.6"/>
+      <ellipse cx="130" cy="50" rx="15" ry="18" fill="#B366B3" opacity="0.6"/>
+      
+      <!-- Head -->
+      <ellipse cx="100" cy="85" rx="42" ry="48" fill="#FDBCB4"/>
+      
+      <!-- Ears -->
+      <ellipse cx="58" cy="85" rx="12" ry="18" fill="#FDBCB4"/>
+      <ellipse cx="142" cy="85" rx="12" ry="18" fill="#FDBCB4"/>
+      <ellipse cx="58" cy="85" rx="6" ry="10" fill="#FFB3A0"/>
+      <ellipse cx="142" cy="85" rx="6" ry="10" fill="#FFB3A0"/>
+      
+      <!-- Eyes -->
+      <ellipse cx="82" cy="75" rx="10" ry="14" fill="#fff"/>
+      <ellipse cx="118" cy="75" rx="10" ry="14" fill="#fff"/>
+      
+      <!-- Pupils -->
+      <circle cx="83" cy="77" r="6" fill="#4A4A6A"/>
+      <circle cx="119" cy="77" r="6" fill="#4A4A6A"/>
+      
+      <!-- Eye shine -->
+      <circle cx="85" cy="75" r="2.5" fill="#fff"/>
+      <circle cx="121" cy="75" r="2.5" fill="#fff"/>
+      
+      <!-- Eyebrows -->
+      <path d="M 72 65 Q 80 60 90 62" stroke="#8B4A8B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 110 62 Q 120 60 128 65" stroke="#8B4A8B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      
+      <!-- Blush -->
+      <circle cx="65" cy="90" r="8" fill="#FF9DBE" opacity="0.5"/>
+      <circle cx="135" cy="90" r="8" fill="#FF9DBE" opacity="0.5"/>
+      
+      <!-- Nose -->
+      <line x1="100" y1="80" x2="100" y2="92" stroke="#FDBCB4" stroke-width="1.5"/>
+      
+      <!-- Mouth -->
+      <path d="M 90 102 Q 100 110 110 102" stroke="#FF6FA5" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 90 102 Q 100 106 110 102" fill="#FF9DBE" opacity="0.3"/>
+      
+      <!-- Neck -->
+      <rect x="90" y="125" width="20" height="15" fill="#FDBCB4"/>
+      
+      <!-- Body/School uniform style -->
+      <path d="M 70 140 L 65 190 Q 65 200 70 200 L 130 200 Q 135 200 135 190 L 130 140 Z" fill="#FF69B4"/>
+      
+      <!-- Collar -->
+      <path d="M 90 140 L 85 155 L 100 150 L 115 155 L 110 140" fill="#FFB3CF"/>
+      
+      <!-- Arms -->
+      <ellipse cx="50" cy="155" rx="13" ry="35" fill="#FDBCB4" transform="rotate(-25 50 155)"/>
+      <ellipse cx="150" cy="155" rx="13" ry="35" fill="#FDBCB4" transform="rotate(25 150 155)"/>
+      
+      <!-- Hands -->
+      <circle cx="35" cy="175" r="10" fill="#FDBCB4"/>
+      <circle cx="165" cy="175" r="10" fill="#FDBCB4"/>
+      
+      <!-- Skirt -->
+      <path d="M 70 200 L 60 245 Q 60 255 70 255 L 130 255 Q 140 255 140 245 L 130 200 Z" fill="#FF69B4" opacity="0.8"/>
+      <path d="M 70 200 L 65 245 M 130 200 L 135 245" stroke="#FFB3CF" stroke-width="1" opacity="0.5"/>
+      
+      <!-- Skirt folds -->
+      <path d="M 80 210 L 75 245" stroke="#FF1493" stroke-width="1.5" opacity="0.3"/>
+      <path d="M 120 210 L 125 245" stroke="#FF1493" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Legs -->
+      <rect x="80" y="255" width="10" height="25" fill="#FDBCB4"/>
+      <rect x="110" y="255" width="10" height="25" fill="#FDBCB4"/>
+      
+      <!-- Shoes -->
+      <ellipse cx="85" cy="282" rx="8" ry="5" fill="#2C2C54"/>
+      <ellipse cx="115" cy="282" rx="8" ry="5" fill="#2C2C54"/>
+    </svg>
+  </div>
+</section>
+
+<!-- HANDWRITTEN NOTE SECTION -->
+<section class="note-section">
+  <div class="handwritten-note">
+    <div class="note-header">Hi Rashi, 💌</div>
+    <div class="note-content">
+      <p>Ye note likha hai dil se.</p>
+      <p style="margin-top:1rem;">Tum meri sabse pyaari haarshi ho — wo jo hansne par aankh band kar deti ho, jo mere sab cheezein suno aur reply dhundo, aur jo mere liye gussa karne ke baad bhi pyaar se baat karti ho.</p>
+      <p style="margin-top:1rem;">Sorry. Sach mein. Dil se.</p>
+    </div>
+    <div class="note-signature">— Tera Aayush 💕</div>
+  </div>
+</section>
+
+<!-- MESSAGES CAROUSEL SECTION -->
+<section class="messages-section">
+  <div class="section-label">Tere liye kuch baatein 💬</div>
+  <div class="messages-carousel">
+    <div class="message-card active">
+      <div class="message-text">Tum mere favorite scene ho, jo hamesha naye tarike se surprise deti ho</div>
+      <div class="message-emoji">✨</div>
+    </div>
+    <div class="message-card">
+      <div class="message-text">Tumhara gussa bhi pyaara lagta hai, par tumhari smile dekh kar hi sab theek ho jaata hai</div>
+      <div class="message-emoji">🌸</div>
+    </div>
+    <div class="message-card">
+      <div class="message-text">Har ek "I'm sorry" sach mein se aata hai, kyunki tum sach mein special ho</div>
+      <div class="message-emoji">💕</div>
+    </div>
+    <div class="message-card">
+      <div class="message-text">Main sirf sorry bolna hi nahi chahta, tum chahti ho pyaar dekha jaaye</div>
+      <div class="message-emoji">❤️</div>
+    </div>
+    <div class="carousel-dots">
+      <div class="dot active" onclick="changeMessage(0)"></div>
+      <div class="dot" onclick="changeMessage(1)"></div>
+      <div class="dot" onclick="changeMessage(2)"></div>
+      <div class="dot" onclick="changeMessage(3)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="letter-section">
+  <div class="letter">
+    <p>Pyaari Rashi,</p>
+    <br>
+    <p>Mujhe pata hai aaj subah maine tumhe <strong>ignore</strong> jaisa feel karaya, aur tum is waqt mujhse bohot gussa ho. Tumhara haq hai gussa hone ka — main bhi agar tumhari jagah hota, toh shayad zyada gussa hota.</p>
+    <br>
+    <p>Lekin ye jaan lo: <strong>woh ignore karna kabhi mera irada nahi tha.</strong> Bas... cheezein theek se handle nahi hui mujhse. Aur uske liye main sach mein, dil se, <strong>sorry</strong> hoon.</p>
+    <br>
+    <p>— Tumhara wahi insaan jo tumhari smile ke bina udaas rehta hai 🥺</p>
+  </div>
+</section>
+
+<section class="meter-section">
+  <div class="section-label">Forgiveness Meter</div>
+  <div class="meter-wrap">
+    <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+    <div class="meter-percent" id="meterPercent">0%</div>
+  </div>
+  <button class="sorry-btn" id="sorryBtn">Sorry bolne do na 🥺</button>
+  <p class="message-display" id="messageDisplay">Button daba kar dekho, kya hota hai...</p>
+</section>
+
+<section class="promise-section">
+  <div class="section-label">Mere Promises, Rashi ke liye</div>
+  <ul class="promise-list">
+    <li><span class="icon">📱</span><span>Phone haath mein rahega, par tumhe ignore kabhi nahi karunga.</span></li>
+    <li><span class="icon">⏰</span><span>Reply time pe karunga — "busy tha" wala excuse nahi chalega.</span></li>
+    <li><span class="icon">🍜</span><span>Tumhe tumhari favorite jagah le jaunga, jab bhi mood off ho.</span></li>
+    <li><span class="icon">🌸</span><span>Tumhara gussa samajhne ki koshish karunga, usse bhaagunga nahi.</span></li>
+    <li><span class="icon">💌</span><span>Roz ek pyara sa message bhejunga — bina kisi reason ke bhi.</span></li>
+  </ul>
+</section>
+
+<section class="finale-section">
+  <h2>I'm Sorry. I Love You, Rashi 🌸</h2>
+  <p class="finale-sub">Agar tumhara dil thoda bhi pighla ho, toh ye button daba do. Warna koi baat nahi, main wait karunga — jitna time chahiye lo.</p>
+  <button class="forgive-btn" id="forgiveBtn" disabled>Maaf kar diya? 💕</button>
+  <p class="hint" id="forgiveHint">(pehle upar wala sorry button 100% tak le jao na 🥺)</p>
+  <p class="success-msg" id="successMsg">Yayyy! Arigatou, Rashi! 🎉🌸 Tumne maaf kar diya!</p>
+</section>
+
+<footer>made with bohot saara pyaar, ek anime fan ke liye 🌙</footer>
+
+<div class="celebration" id="celebration"></div>
+
+<script>
+  // ---------- generate stars ----------
+  const sky = document.getElementById('sky');
+  for(let i=0;i<70;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 1;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'vw';
+    s.style.top = Math.random()*60+'vh';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    sky.appendChild(s);
+  }
+
+  // ---------- generate falling petals ----------
+  function spawnPetal(container){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random()*100+'vw';
+    const dur = 7 + Math.random()*8;
+    p.style.animationDuration = dur+'s, '+(dur*0.6)+'s';
+    p.style.animationDelay = (Math.random()*5)+'s, 0s';
+    p.style.opacity = 0.5 + Math.random()*0.5;
+    const scale = 0.6 + Math.random()*0.8;
+    p.style.transform = 'scale('+scale+')';
+    container.appendChild(p);
+  }
+  for(let i=0;i<22;i++){ spawnPetal(sky); }
+
+  // ---------- MESSAGE CAROUSEL ----------
+  let currentMessage = 0;
+  const messageCards = document.querySelectorAll('.message-card');
+  const dots = document.querySelectorAll('.dot');
+
+  function changeMessage(index){
+    messageCards[currentMessage].classList.remove('active');
+    dots[currentMessage].classList.remove('active');
+    
+    currentMessage = index;
+    messageCards[currentMessage].classList.add('active');
+    dots[currentMessage].classList.add('active');
+  }
+
+  // Auto-rotate messages every 5 seconds
+  setInterval(() => {
+    let next = (currentMessage + 1) % messageCards.length;
+    changeMessage(next);
+  }, 5000);
+
+  // ---------- forgiveness meter ----------
+  const messages = [
+    "Sorry Rashi 🥺 subah jo hua, woh meri galti thi.",
+    "Tumhe ignore karna mera irada bilkul nahi tha, pyaar.",
+    "Tum gussa karti ho to lagta hai saare sad anime scenes ek saath chal rahe hain 😭",
+    "Tumhare bina din bina BGM wale episode jaisa lagta hai.",
+    "Promise — ab se phone bhi check karunga aur tumhe miss bhi nahi karunga.",
+    "Tum meri favorite character ho, woh bhi real life waali ❤️",
+    "Bas ek chance do na, main sab theek kar dunga.",
+    "I'm sorry. I love you, Rashi. Please maaf kar do 🌸"
+  ];
+  let clicks = 0;
+  const meterFill = document.getElementById('meterFill');
+  const meterPercent = document.getElementById('meterPercent');
+  const messageDisplay = document.getElementById('messageDisplay');
+  const sorryBtn = document.getElementById('sorryBtn');
+  const forgiveBtn = document.getElementById('forgiveBtn');
+  const forgiveHint = document.getElementById('forgiveHint');
+
+  sorryBtn.addEventListener('click', () => {
+    if(clicks >= messages.length) return;
+    clicks++;
+    const pct = Math.round((clicks/messages.length)*100);
+    meterFill.style.width = pct+'%';
+    meterPercent.textContent = pct+'%';
+    messageDisplay.style.opacity = 0;
+    setTimeout(()=>{
+      messageDisplay.textContent = messages[clicks-1];
+      messageDisplay.style.opacity = 1;
+    }, 200);
+
+    burstPetalsAt(sorryBtn);
+
+    if(clicks >= messages.length){
+      sorryBtn.textContent = "100% Sorry Delivered ✅";
+      sorryBtn.disabled = true;
+      forgiveBtn.disabled = false;
+      forgiveHint.textContent = "(ab tumhari baari hai, Rashi 🌸)";
+    } else {
+      sorryBtn.textContent = "Thoda aur sorry? 🥺";
+    }
+  });
+
+  function burstPetalsAt(el){
+    const rect = el.getBoundingClientRect();
+    for(let i=0;i<8;i++){
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.position = 'fixed';
+      p.style.left = (rect.left + rect.width/2)+'px';
+      p.style.top = rect.top+'px';
+      p.style.animation = 'none';
+      p.style.transition = 'transform 1s ease-out, opacity 1s ease-out';
+      p.style.zIndex = 40;
+      document.body.appendChild(p);
+      const dx = (Math.random()-0.5)*220;
+      const dy = -100 - Math.random()*120;
+      requestAnimationFrame(()=>{
+        p.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random()*360}deg)`;
+        p.style.opacity = 0;
+      });
+      setTimeout(()=>p.remove(), 1100);
+    }
+  }
+
+  // ---------- finale celebration ----------
+  const celebration = document.getElementById('celebration');
+  const successMsg = document.getElementById('successMsg');
+  const emojis = ['🌸','💖','🎉','✨','💕','🌙'];
+
+  forgiveBtn.addEventListener('click', () => {
+    forgiveBtn.disabled = true;
+    forgiveBtn.textContent = "Yayyy 💕";
+    successMsg.classList.add('show');
+    for(let i=0;i<60;i++){
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      c.style.left = Math.random()*100+'vw';
+      c.style.fontSize = (1 + Math.random()*1.4)+'rem';
+      const dur = 3 + Math.random()*3;
+      c.style.animationDuration = dur+'s';
+      c.style.animationDelay = (Math.random()*1.5)+'s';
+      celebration.appendChild(c);
+      setTimeout(()=>c.remove(), (dur+2)*1000);
+    }
+  });
+</script>
+
+</body>
+</html>
